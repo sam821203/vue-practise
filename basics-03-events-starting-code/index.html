@@ -17,9 +17,22 @@
   </header>
   <section id="events">
     <h2>Events in Action</h2>
-    <button v-on:click="add">Add</button>
-    <button v-on:click="reduce">Reduce</button>
+    <button @click="add(5)">Add</button>
+    <button @click.middle="reduce(5)">Reduce</button>
+    <p v-once>Starting counter: {{ counter }}</p>
     <p>Result: {{ counter }}</p>
+
+    <!-- v-model -->
+    <input type="text" :value="test" v-model="name">
+    <input type="text" v-model="lastName">
+
+    <button @click="resetInput">Reset input</button>
+    <p>Your name: {{ fullName }}</p>
+
+    <form v-on:submit.prevent="submitForm">
+      <input type="text">
+      <button>Sign up</button>
+    </form>
   </section>
 </body>
 
