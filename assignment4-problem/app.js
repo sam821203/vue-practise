@@ -1,28 +1,26 @@
-const app = Vue.createApp({
-  // 判斷 input 是 use1 還是 user2
+const { createApp } = Vue;
+
+createApp({
   data() {
     return {
-      // 用來儲存 user input
       inputClass: '',
-      paragraphIsVisible: true,
+      paraIsVisible: true,
       inputBackgroundColor: '',
     }
   },
   computed: {
-    paraClasses() {
+    addInputClass() {
       return {
-        user1: this.inputClass === 'user1', 
+        user1: this.inputClass === 'user1',
         user2: this.inputClass === 'user2',
-        visible: this.paragraphIsVisible,
-        hidden: !this.paragraphIsVisible
+        visible: this.paraIsVisible === true,
+        hidden: this.paraIsVisible === false,
       }
     }
   },
   methods: {
     toggleParagraph() {
-      this.paragraphIsVisible = !this.paragraphIsVisible;
+      this.paraIsVisible = !this.paraIsVisible;
     }
   }
-})
-
-app.mount('#assignment');
+}).mount('#assignment')
