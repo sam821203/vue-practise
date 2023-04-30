@@ -9,6 +9,7 @@
       <li><strong>Phone:</strong>{{ phoneNumber }}</li>
       <li><strong>Email:</strong>{{ emailAddress }}</li>
     </ul>
+    <button @click="$emit('delete', id)">Delete</button>
   </li>
 </template>
 
@@ -42,7 +43,7 @@ export default {
     },
   },
   // 簡易的版本
-  emits: ["toggle-favorite"],
+  emits: ["toggle-favorite", "delete"],
   // 完整的版本
   // emits: {
   //   "toggle-favorite": function (id) {
@@ -66,6 +67,9 @@ export default {
     toggleFavorite() {
       this.$emit("toggle-favorite", this.id);
     },
+    // deleteFriend() {
+    //   this.$emit('delete')
+    // }
   },
 };
 </script>
