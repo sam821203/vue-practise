@@ -3,6 +3,7 @@
     <prompt-resource
       v-for="res in resources"
       :key="res.id"
+      :id="res.id"
       :ai-generator="res.aiGenerator"
       :title="res.title"
       :prompt="res.prompt"

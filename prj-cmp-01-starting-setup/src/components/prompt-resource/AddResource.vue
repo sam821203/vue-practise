@@ -1,5 +1,17 @@
 <template>
-  <base-dialog v-if="inputIsInvalid"></base-dialog>
+  <base-dialog
+    v-if="inputIsInvalid"
+    title="Invalid Input"
+    @close="confirmedError"
+  >
+    <template #default>
+      <p>Unfortunately, at least one input value</p>
+      <p>Please check all inputs and make sure you enter</p>
+    </template>
+    <template #action>
+      <base-button @click="confirmedError" mode="green-blue">Okay</base-button>
+    </template>
+  </base-dialog>
   <base-card>
     <form @submit.prevent="submitData" action="">
       <div class="form-control">
@@ -69,6 +81,9 @@ export default {
         enteredImage,
         enteredLink
       );
+    },
+    confirmedError() {
+      this.inputIsInvalid = false;
     },
   },
 };

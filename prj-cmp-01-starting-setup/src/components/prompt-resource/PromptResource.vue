@@ -7,7 +7,7 @@
         <div>
           <img :src="image" alt="" />
         </div>
-        <base-button mode="">Delete</base-button>
+        <base-button mode="" @click="removeResource(id)">Delete</base-button>
       </header>
       <p>{{ prompt }}</p>
       <nav>
@@ -20,6 +20,10 @@
 <script>
 export default {
   props: {
+    id: {
+      type: String,
+      required: true,
+    },
     aiGenerator: {
       type: String,
       required: true,
@@ -41,6 +45,7 @@ export default {
       required: true,
     },
   },
+  inject: ['removeResource'],
 };
 </script>
 

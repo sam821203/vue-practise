@@ -65,6 +65,7 @@ export default {
     return {
       resources: this.storedResource,
       addResource: this.addResource,
+      removeResource: this.removeResource,
     };
   },
   methods: {
@@ -82,6 +83,16 @@ export default {
       };
       this.storedResource.unshift(newResource);
       this.selectedTab = 'stored-resource';
+    },
+    removeResource(id) {
+      // 這樣會得到新的陣列，所以無法更改資料
+      // this.storedResource = this.storedResource.filter(
+      //   (resource) => resource.id !== id
+      // );
+      const resourceIndex = this.storedResource.findIndex(
+        (resource) => resource.id === id
+      );
+      this.storedResource.splice(resourceIndex, 1);
     },
   },
   computed: {
