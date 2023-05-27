@@ -1,44 +1,64 @@
 <template>
   <section class="container">
-    <h2>{{ userName }}</h2>
-    <h3>{{ userAge }}</h3>
+    <!-- <user-data class="test" :first-name="firstName" :last-name="lastName" :user-age="userAge"></user-data> -->
+    <user-data :first-name="firstName" :last-name="lastName" ></user-data>
     <button @click="setNewData">Change Age</button>
     <div>
-      <input type="text" placeholder="First Name" @input="setFirstName">
-      <input type="text" placeholder="Last Name" @input="setLastName">
+      <input type="text" placeholder="First Name" v-model="firstName">
+      <input type="text" placeholder="Last Name" ref="lastNameInput">
+      <button @click="setLastName">Set Last Name</button>
     </div>
   </section>
 </template>
 
-<script setup>
-import { ref, computed } from 'vue';
+<script>
+import { ref, computed, watch, provide } from 'vue';
+import UserData from './components/UserData.vue';
 
-// const user = reactive({
-//   name: 'Sam',
-//   age: 20
-// })
+export default {
+  components: {
+    UserData
+  },
+  setup() {
+    const userAge = ref(20);
+    const firstName = ref('');
+    const lastName = ref('');
+    const lastNameInput = ref(null);
+    
+    // 第一個參數隨意取名，第二個是想要提供的值
+    provide('userAge', userAge);
 
-// const userName = user.name;
-// const userAge = user.age;
+    const setNewData = () => {
+      userAge.value = 40;
+    }
+    
+    const userName = computed(() => {
+      return firstName.value + ' ' + lastName.value;
+    })
+    
+    watch([userAge, userName], (newVal, oldVal) => {
+      console.log('newAge: ' + newVal[0]);
+      console.log('oldAge: ' + oldVal[0]);
+      console.log('newName: ' + newVal[1]);
+      console.log('oldName: ' + oldVal[1]);
+    })
+    
+    const setLastName = () => {
+      lastName.value = lastNameInput.value.value;
+    }
 
-const firstName = ref('');
-const lastName = ref('');
-
-// const setNewData = () => {
-//   user.age = 102;
-// }
-
-const userName = computed(() => {
-  return firstName.value + ' ' + lastName.value;
-})
-
-const setFirstName = (e) => {
-  firstName.value = e.target.value;
+    return {
+      userAge,
+      firstName,
+      lastName,
+      userName,
+      lastNameInput,
+      setLastName,
+      setNewData
+    }
+  }
 }
 
-const setLastName = (e) => {
-  lastName.value = e.target.value;
-}
 </script>
 
 <style>
