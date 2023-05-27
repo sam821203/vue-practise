@@ -1,11 +1,11 @@
 <template>
   <section class="container">
     <!-- <user-data class="test" :first-name="firstName" :last-name="lastName" :user-age="userAge"></user-data> -->
-    <user-data :first-name="firstName" :last-name="lastName" ></user-data>
+    <user-data :first-name="firstName" :last-name="lastName"></user-data>
     <button @click="setNewData">Change Age</button>
     <div>
-      <input type="text" placeholder="First Name" v-model="firstName">
-      <input type="text" placeholder="Last Name" ref="lastNameInput">
+      <input type="text" placeholder="First Name" v-model="firstName" />
+      <input type="text" placeholder="Last Name" ref="lastNameInput" />
       <button @click="setLastName">Set Last Name</button>
     </div>
   </section>
@@ -17,35 +17,35 @@ import UserData from './components/UserData.vue';
 
 export default {
   components: {
-    UserData
+    UserData,
   },
   setup() {
     const userAge = ref(20);
     const firstName = ref('');
     const lastName = ref('');
     const lastNameInput = ref(null);
-    
+
     // 第一個參數隨意取名，第二個是想要提供的值
     provide('userAge', userAge);
 
     const setNewData = () => {
       userAge.value = 40;
-    }
-    
+    };
+
     const userName = computed(() => {
       return firstName.value + ' ' + lastName.value;
-    })
-    
+    });
+
     watch([userAge, userName], (newVal, oldVal) => {
       console.log('newAge: ' + newVal[0]);
       console.log('oldAge: ' + oldVal[0]);
       console.log('newName: ' + newVal[1]);
       console.log('oldName: ' + oldVal[1]);
-    })
-    
+    });
+
     const setLastName = () => {
       lastName.value = lastNameInput.value.value;
-    }
+    };
 
     return {
       userAge,
@@ -54,11 +54,10 @@ export default {
       userName,
       lastNameInput,
       setLastName,
-      setNewData
-    }
-  }
-}
-
+      setNewData,
+    };
+  },
+};
 </script>
 
 <style>
