@@ -7,11 +7,12 @@ const useSearch = (items, searchProp) => {
   const availableItems = computed(function () {
     let filteredItems = [];
     if (activeSearchTerm.value) {
-      filteredItems = items.filter((item) =>
+      // 這裡使用 items.value 假如傳進來的參數是 ref
+      filteredItems = items.value.filter((item) =>
         item[searchProp].includes(activeSearchTerm.value)
       );
-    } else if (items) {
-      filteredItems = items;
+    } else if (items.value) {
+      filteredItems = items.value;
     }
     return filteredItems;
   });
