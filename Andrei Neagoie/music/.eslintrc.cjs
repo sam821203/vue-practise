@@ -23,5 +23,9 @@ module.exports = {
   },
   env: {
     node: true,
+  },
+  rules: {
+    "vue/multi-word-component-names": "off",
+    "vue/no-multiple-template-root": "off",
   }
 }
