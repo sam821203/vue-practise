@@ -1,27 +1,16 @@
 <template>
   <div id="app">
-    <div class="mt-2 ml-2">
-      <button type="button" class="btn btn-primary" @click="open = true">
-        Open
-      </button>
-    </div>
-
-    <app-modal :show="open" @hide="open = false" />
+    <app-action />
   </div>
 </template>
 
 <script>
-import AppModal from "@/components/Modal.vue";
+import AppAction from "@/components/Action.vue";
 
 export default {
   name: "App",
   components: {
-    AppModal,
-  },
-  data() {
-    return {
-      open: false,
-    };
+    AppAction,
   },
 };
 </script>
