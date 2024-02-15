@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <div id="root">
+            <div>{{ name.toUpperCase() }}, {{ address }}</div>
+        </div>
+        <div id="root2">
+            <div>{{ name }}, {{ address }}</div>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+        <script src="./script.js"></script>
+        <script>
+            // 設定為false以阻止vue 在啟動時產生生產提示
+            Vue.config.productionTip = false
+
+            // 創建 Vue 實例，物件裡放配置對象
+            new Vue({
+                // el 識 element 的簡寫
+                el: '#root',
+                // data 中的數據指提供 id="root" 的容器來使用
+                data: {
+                    name: 'chapter one',
+                    address: '地址1',
+                },
+            })
+            new Vue({
+                // el 識 element 的簡寫
+                el: '#root2',
+                // data 中的數據指提供 id="root" 的容器來使用
+                data: {
+                    name: '第二章節',
+                    address: '地址2',
+                },
+            })
+        </script>
+    </body>
+</html>

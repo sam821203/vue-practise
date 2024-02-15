@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>模板語法</title>
+    </head>
+    <body>
+        <div id="root">
+            <div>{{ name }}</div>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+        <script>
+            Vue.config.productionTip = false
+
+            const v = new Vue({
+                // el: '#root',
+                // 第一種 data 寫法，對象式
+                // data: {
+                //     name: 'Sam',
+                // },
+                // 第二種 data 寫法，函數式
+                // 這裡不能寫誠箭頭函數，因為會失去 this 的指向，不會是 Vue 實例
+                data() {
+                    console.log('this: ', this)
+                    return {
+                        name: 'Sam',
+                    }
+                },
+            })
+
+            // 用 $mount 取代 el 來指定掛載點
+            console.log(v)
+            v.$mount('#root')
+        </script>
+    </body>
+</html>

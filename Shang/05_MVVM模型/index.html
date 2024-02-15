@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>document</title>
+    </head>
+    <body>
+        <div id="root">
+            <div>學校名稱：{{ name }}</div>
+            <div>學校地址：{{ address }}</div>
+            <!-- vm 上有的，都能在 template 這裡取得 -->
+            <div>vm 身上的：{{ $options }}</div>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+        <script>
+            Vue.config.productionTip = false
+
+            // 這裡的 new Vue 就是 ViewModel
+            const v = new Vue({
+                data() {
+                    console.log('this: ', this)
+                    return {
+                        name: 'Sam',
+                        address: '台北市中山區',
+                    }
+                },
+            })
+
+            // 用 $mount 取代 el 來指定掛載點
+            console.log(v)
+            v.$mount('#root')
+        </script>
+    </body>
+</html>
