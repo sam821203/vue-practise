@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>document</title>
+        <style>
+            .demo1 {
+                background-color: skyblue;
+            }
+
+            .box1 {
+                background-color: skyblue;
+            }
+
+            .box2 {
+                background-color: tomato;
+            }
+
+            .list {
+                width: 200px;
+                height: 200px;
+                background-color: pink;
+                overflow: auto;
+            }
+
+            li {
+                height: 100px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="root">
+            <!-- prevent: 阻止默認事件 -->
+            <a href="https://v2.vuejs.org/v2/api/" @click.prevent="showInfo">Click prevent</a>
+            <br />
+            <!-- stop: 阻止事件冒泡 -->
+            <div class="demo1" @click="showInfo">
+                <button @click.stop="showInfo">Click stop</button>
+            </div>
+            <br />
+            <!-- once: 事件只觸發一次 -->
+            <button @click.once="showInfo">Click once</button>
+            <br />
+            <!-- capture: 使用事件捕獲模式 -->
+            <!-- 使用後，可以先捕獲再冒泡 -->
+            <div class="box1" @click.capture="showMsg(1)">
+                div1
+                <div class="box2" @click="showMsg(2)">div2</div>
+            </div>
+            <br />
+            <!-- self: 只有 event.target，也就是當前操作的元素才會觸發 -->
+            <div class="box1" @click.self="showInfo">
+                <button class="box2" @click="showInfo">div2</button>
+            </div>
+            <br />
+            <!-- passive: 事件的默認行為立即執行，無需等待事件回調執行完畢 -->
+            <!-- 也就是優先享受滾動，再去執行函式 -->
+            <!-- scroll 可以滾動更多，wheel 可以滾動一小截 -->
+            <ul @wheel.passive="scroll" class="list">
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+            </ul>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+        <script>
+            const vm = new Vue({
+                data() {
+                    return {
+                        name: 'Sam 124',
+                        address: '台北市中山區',
+                    }
+                },
+                methods: {
+                    showInfo(event) {
+                        console.log(event.target)
+                    },
+                    showMsg(msg) {
+                        console.log(msg)
+                    },
+                    scroll() {
+                        console.log('scroll...')
+                    },
+                },
+            })
+
+            vm.$mount('#root')
+        </script>
+    </body>
+</html>

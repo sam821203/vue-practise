@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>document</title>
+    </head>
+    <body>
+        <div id="root"></div>
+
+        <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+        <script>
+            // 數據代理：通過一個物件代理對另一個物件中暑性的操作 (讀/寫)
+            let obj = {
+                x: 100,
+            }
+
+            let obj2 = {
+                y: 200,
+            }
+
+            Object.defineProperty(obj2, 'x', {
+                get() {
+                    return obj.x
+                },
+                // 使用 set 的話，這裡才能達到 obj 和 obj2 的雙向同步
+                set(value) {
+                    obj.x = value
+                },
+            })
+
+            console.log('obj2:', obj2)
+        </script>
+    </body>
+</html>

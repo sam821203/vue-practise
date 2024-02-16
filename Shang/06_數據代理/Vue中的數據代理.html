@@ -10,21 +10,28 @@
             <div>學校名稱：{{ name }}</div>
             <div>學校地址：{{ address }}</div>
             <!-- vm 上有的，都能在 template 這裡取得 -->
-            <div>vm 身上的：{{ $options }}</div>
         </div>
 
         <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
         <script>
-            let person = {
-                name: 'John',
-                age: '20',
+            Vue.config.productionTip = false
+
+            // vm._data = options.data = data
+            let data = {
+                name: 'Sam 124',
+                address: '台北市中山區',
             }
 
-            Object.defineProperty(person, 'sex', {
-                value: '男',
+            /* 
+                1.通過 getter，vm.name 會帶到 vm._data.name 的值
+                2.這個過程就是數據代理，在 template 中就不需要再寫 _data 了
+                3.過程中使用了 Object.defineProperty
+            */
+            const vm = new Vue({
+                data,
             })
 
-            console.log(person)
+            vm.$mount('#root')
         </script>
     </body>
 </html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>document</title>
+    </head>
+    <body>
+        <div id="root"></div>
+
+        <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+        <script>
+            let number = 18
+            let person = {
+                name: 'John',
+                sex: '男',
+            }
+
+            // 這裡的 age 是不可以被枚舉的，也就是不參與遍歷
+            // 透過 Object.defineProperty 設置的屬性是不可被修改的
+            Object.defineProperty(person, 'age', {
+                // value: '男',
+                // enumerable 控制屬性是否可以被遍歷，默認是 false
+                // enumerable: true,
+                // writable 控制屬性是否可以被修改，默認是 false
+                // writable: true,
+                // configurable 控制屬性是否可以被刪除，默認是 false
+                // configurable: true,
+                /* 
+                    1.當有人讀取 person 的 age 屬性時，get 方法會被調用，且返回值會是 age 的值
+                    2.get 是屬性，屬性值是個函數，兩個放在一起就是一個 getter
+                    3.每一次去訪問 age，都會觸發 getter 的調用
+                */
+                get() {
+                    console.log('讀取 person 的 age 屬性值')
+                    return number
+                },
+                /* 
+                    1.當有人修改 person 的 age 屬性時，setter 方法會被調用，且返回值會是 age 修改後的值
+                    2.value 參數是修改後的值
+                */
+                set(value) {
+                    console.log('修改 person 的 age 屬性值')
+                    number = value
+                },
+            })
+
+            console.log(person)
+        </script>
+    </body>
+</html>
