@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>document</title>
+    </head>
+    <body>
+        <div id="root">
+            <input type="text" placeholder="請輸入名字" v-model="keyword" />
+            <li v-for="p in filterPersons" :key="p.id">{{ p.name }}</li>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+        <script>
+            Vue.config.productionTip = false
+
+            const vm = new Vue({
+                data() {
+                    return {
+                        keyword: '',
+                        persons: [
+                            { id: 1, name: 'Sam', age: 18 },
+                            { id: 2, name: 'Tom', age: 20 },
+                            { id: 3, name: 'John', age: 22 },
+                        ],
+                        // filterPersons: [],
+                    }
+                },
+                // 用 computed 實現
+                computed: {
+                    filterPersons() {
+                        return this.persons.filter((p) => {
+                            return p.name.indexOf(this.keyword) !== -1
+                        })
+                    },
+                },
+                // 用 watch 實現
+                // #region
+                // watch: {
+                //     keyword: {
+                //         immediate: true,
+                //         handler(val) {
+                //             this.filterPersons = this.persons.filter((p) => {
+                //                 return p.name.indexOf(val) !== -1
+                //             })
+                //         },
+                //     },
+                // },
+                // #endregion
+            })
+
+            vm.$mount('#root')
+        </script>
+    </body>
+</html>

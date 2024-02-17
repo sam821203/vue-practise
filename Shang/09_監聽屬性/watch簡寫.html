@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>document</title>
+    </head>
+    <body>
+        <div id="root">
+            <div>今天天氣很{{ info }}</div>
+            <button @click="switchWeather">切換</button>
+            <hr />
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+        <script>
+            const vm = new Vue({
+                data() {
+                    return {
+                        isHot: true,
+                    }
+                },
+                methods: {
+                    switchWeather() {
+                        this.isHot = !this.isHot
+                    },
+                },
+                computed: {
+                    info() {
+                        return this.isHot ? '炎熱' : '涼爽'
+                    },
+                },
+                // 如果不需要 deep 或 immediate，就可以開啟簡寫模式
+                watch: {
+                    isHot(newVal, oldVal) {
+                        console.log('isHot 改變了')
+                    },
+                },
+            })
+
+            vm.$mount('#root')
+        </script>
+    </body>
+</html>

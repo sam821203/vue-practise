@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>document</title>
+    </head>
+    <body>
+        <div id="root">
+            <div>今天天氣很{{ info }}</div>
+            <button @click="switchWeather">切換</button>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+        <script>
+            const vm = new Vue({
+                data() {
+                    return {
+                        isHot: true,
+                    }
+                },
+                methods: {
+                    switchWeather() {
+                        this.isHot = !this.isHot
+                    },
+                },
+                computed: {
+                    info() {
+                        return this.isHot ? '炎熱' : '涼爽'
+                    },
+                },
+                watch: {
+                    isHot: {
+                        // handler 是回調函式，當 isHot 改變時調用
+                        handler(newVal, oldVal) {
+                            console.log('新的值：', newVal)
+                            console.log('舊的值：', oldVal)
+                        },
+                        // immediate 讓初始化時，讓 handler 立即調用
+                        immediate: true,
+                    },
+                },
+            })
+
+            // 如果有宣告 vm 變數，可以用 vm.$watch 來監聽
+            // 一般在創建實例時，還不確定要監聽誰的話，可以用這個方法
+            // vm.$watch('isHot', (newVal, oldVal) => {
+            //     console.log('新的值：', newVal)
+            //     console.log('舊的值：', oldVal)
+            // })
+
+            vm.$mount('#root')
+        </script>
+    </body>
+</html>

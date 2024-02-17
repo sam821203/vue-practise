@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>document</title>
+    </head>
+    <body>
+        <div id="root">
+            <div>今天天氣很{{ info }}</div>
+            <button @click="switchWeather">切換</button>
+            <hr />
+            <h3>{{ numbers.a }}</h3>
+            <button @click="numbers.a++">+</button>
+            <h3>{{ numbers.c.c2 }}</h3>
+            <button @click="numbers.c.c2++">多層+</button>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+        <script>
+            const vm = new Vue({
+                data() {
+                    return {
+                        isHot: true,
+                        numbers: {
+                            a: 1,
+                            b: 2,
+                            c: {
+                                c1: 11,
+                                c2: 12,
+                            },
+                        },
+                    }
+                },
+                methods: {
+                    switchWeather() {
+                        this.isHot = !this.isHot
+                    },
+                },
+                computed: {
+                    info() {
+                        return this.isHot ? '炎熱' : '涼爽'
+                    },
+                },
+                watch: {
+                    isHot: {
+                        handler(newVal, oldVal) {
+                            console.log('新的值：', newVal)
+                            console.log('舊的值：', oldVal)
+                        },
+                        immediate: true,
+                    },
+                    // 物件裡的 key 是字串，所以需要用引號包起來
+                    // 監聽多層結構中某個屬性的變化
+                    // 'numbers.a': {
+                    //     handler(newVal, oldVal) {
+                    //         console.log('a 改變了')
+                    //     },
+                    // },
+
+                    // 開啟深度監聽，監聽 numbers 裡的屬性
+                    // Vue 預設是可以監聽到多層級的屬性變化的，但 Vue 提供的 watch 並不會
+                    numbers: {
+                        handler(newVal, oldVal) {
+                            console.log('改變了')
+                        },
+                        deep: true,
+                    },
+                },
+            })
+
+            vm.$mount('#root')
+        </script>
+    </body>
+</html>

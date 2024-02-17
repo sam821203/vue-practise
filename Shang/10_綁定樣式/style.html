@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>document</title>
+    </head>
+    <body>
+        <div id="root">
+            <div class="basic" :style="styleObj">{{ name }}</div>
+            <div class="basic" :style="[styleObj, styleObj2]">{{ name }}</div>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+        <script>
+            Vue.config.productionTip = false
+
+            const vm = new Vue({
+                data() {
+                    return {
+                        name: 'Sam',
+                        classObj: {
+                            class1: false,
+                            class2: false,
+                        },
+                        // style 裡的屬性名稱要用駝峰命名法，不能隨便命名
+                        styleObj: {
+                            color: 'red',
+                            fontSize: '30px',
+                        },
+                        styleObj2: {
+                            backgroundColor: 'skyblue',
+                        },
+                    }
+                },
+                methods: {
+                    switchWeather() {
+                        this.isHot = !this.isHot
+                    },
+                },
+            })
+
+            vm.$mount('#root')
+        </script>
+    </body>
+</html>

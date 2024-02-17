@@ -32,7 +32,8 @@
     <body>
         <div id="root">
             <!-- prevent: 阻止默認事件 -->
-            <a href="https://v2.vuejs.org/v2/api/" @click.prevent="showInfo">Click prevent</a>
+            <!-- 也可以寫成先停止冒泡，再阻止默認事件 -->
+            <a href="https://v2.vuejs.org/v2/api/" @click.stop.prevent="showInfo">Click prevent</a>
             <br />
             <!-- stop: 阻止事件冒泡 -->
             <div class="demo1" @click="showInfo">

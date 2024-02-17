@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>document</title>
+    </head>
+    <body>
+        <div id="root">
+            <div>今天天氣很{{ info }}</div>
+            <input type="text" v-model="firstName" />
+            <input type="text" v-model="lastName" />
+            <hr />
+            <div>{{ fullName }}</div>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+        <script>
+            const vm = new Vue({
+                data() {
+                    return {
+                        isHot: true,
+                        firstName: 'Huang',
+                        lastName: 'Yu Hao',
+                        fullName: 'Huang Yu Hao',
+                    }
+                },
+                methods: {
+                    switchWeather() {
+                        this.isHot = !this.isHot
+                    },
+                },
+                // 在 computed 中 return 值的話，返回的函式會是 setTimeout
+                computed: {
+                    info() {
+                        return this.isHot ? '炎熱' : '涼爽'
+                    },
+                },
+                // 假如今天的需求是需要等一下才去執行，就可以使用 watch
+                /*
+                    1.computed 能完成的功能，watch 也能完成
+                    2.watch 能完成的功能，computed 不一定能完成
+                    3.被 Vue 管理的函數，最好寫成普通函數，這樣 this 的指向才是 vm 或是 Vue 實例
+                    4.所有不被 Vue 管理的函數 (setTimeout 或 ajax 等回調函數)，最好寫成箭頭函數，這樣 this 的指向才是 vm 或是 Vue 實例
+                */
+                watch: {
+                    firstName(newVal) {
+                        // 定時器所管理的函式不是由 Vue 控制的，而是由瀏覽器控制的
+                        setTimeout(() => {
+                            console.log(this)
+                            this.fullName = newVal + '-' + this.lastName
+                        }, 1000)
+                    },
+                    lastName(newVal) {
+                        this.fullName = this.firstName + '-' + newVal
+                    },
+                },
+            })
+
+            vm.$mount('#root')
+        </script>
+    </body>
+</html>
