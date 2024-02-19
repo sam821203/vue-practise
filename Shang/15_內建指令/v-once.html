@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>v-once</title>
+    </head>
+    <body>
+        <div id="root">
+            <!-- v-once 只在第一次時做更新 -->
+            <div v-once>初始的：{{count}}</div>
+            <div>目前的：{{count}}</div>
+            <button @click="addCount">點擊</button>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+        <script>
+            Vue.config.productionTip = false
+
+            const vm = new Vue({
+                data() {
+                    return {
+                        count: 1,
+                    }
+                },
+                methods: {
+                    addCount() {
+                        this.count++
+                    },
+                },
+            })
+
+            vm.$mount('#root')
+        </script>
+    </body>
+</html>

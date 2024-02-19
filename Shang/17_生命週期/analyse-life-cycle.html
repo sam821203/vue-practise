@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>document</title>
+    </head>
+    <body>
+        <div id="root">
+            <h2 :style="{ opacity }">Opacity</h2>
+            <h2>{{ count }}</h2>
+            <button @click="add">點擊</button>
+            <button @click="unmount">點擊銷毀</button>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+        <script>
+            Vue.config.productionTip = false
+
+            const vm = new Vue({
+                // 會替換掉包含 root 的 div
+                // template: `
+                //     <div>
+                //         <h2>{{ count }}</h2>
+                //         <button @click="add">點擊</button>
+                //     </div>
+                // `,
+                data() {
+                    return {
+                        opacity: 1,
+                        count: 1,
+                    }
+                },
+                computed: {},
+                methods: {
+                    add() {
+                        console.log('add')
+                        this.count++
+                    },
+                    unmount() {
+                        // 原生事件不會影響，自定義事件會被銷毀
+                        // 盡量不用此方法，可以用 v-if 代替
+                        this.$destroy()
+                    },
+                },
+                beforeCreate() {
+                    console.log('beforeCreate')
+                },
+                created() {
+                    console.log('created')
+                },
+                beforeMount() {
+                    // 不要在這階段操作 DOM，因為最終會被 mounted 後的值蓋過
+                    console.log('beforeMount')
+                },
+                // Vue 完成模板的解析，並把 DOM 元素放入後才會調用
+                // 只會觸發一次，因為在掛載那個關鍵時刻後，就不會再觸發
+                // 此時操作 DOM 是有效的，但盡可能不要在這裡操作 DOM
+                mounted() {
+                    console.log('mounted')
+                    console.log(this)
+                    this.timer = setInterval(() => {
+                        this.opacity -= 0.01
+                        if (this.opacity <= 0) this.opacity = 1
+                    }, 16)
+                },
+                // 此時數據是新的，但 DOM 還沒有更新
+                // beforeUpdate() {
+                //     console.log('beforeUpdate')
+                // },
+                // updated() {
+                //     console.log('updated')
+                // },
+                // 一般會在此階段、取消訂閱信息、解綁自定義事件等收尾操作
+                beforeDestroy() {
+                    console.log('beforeDestroy')
+                    clearInterval(this.timer)
+                },
+                // 銷毀後，Vue 開發者工具看不到任何信息
+                // 銷毀後自定義事件會失效，但原生 DOM 事件依然有效
+                destroyed() {
+                    console.log('destroyed')
+                },
+            })
+
+            vm.$mount('#root')
+
+            // 不推薦：通過外部的定時器操作 Vue 實例的數據
+            // setInterval(() => {
+            //     vm.opacity -= 0.01
+            //     if (vm.opacity <= 0) vm.opacity = 1
+            // }, 16)
+        </script>
+    </body>
+</html>

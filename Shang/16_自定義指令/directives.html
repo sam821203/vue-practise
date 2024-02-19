@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>document</title>
+    </head>
+    <body>
+        <div id="root">
+            <div>當前值是：<span v-text="count"></span></div>
+            <div>當前值的10倍是：<span v-bigger-number="count"></span></div>
+            <button @click="addBigger">點擊</button>
+            <hr />
+            <input type="text" v-bind:value="count" />
+            <input type="text" v-fbind:value="count" />
+        </div>
+
+        <!-- <div id="root2">
+            <input type="text" v-bind:value="count" />
+        </div> -->
+
+        <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+        <script>
+            Vue.config.productionTip = false
+            // 如果想將指令變成全局使用，讓其他的 Vue 實例也可以使用，就需要使用 Vue.directive
+            // Vue.directives('fbind', {
+            //     bind(element, binding) {
+            //         console.log('bind')
+            //         element.value = binding.value
+            //     },
+            //     inserted(element, binding) {
+            //         console.log('inserted')
+            //         element.focus()
+            //     },
+            //     update(element, binding) {
+            //         console.log('update')
+            //         element.value = binding.value
+            //     },
+            // })
+
+            const vm = new Vue({
+                data() {
+                    return {
+                        count: 1,
+                    }
+                },
+                methods: {
+                    addBigger() {
+                        this.count++
+                    },
+                },
+                directives: {
+                    // 第一個參數是真實的 DOM
+                    // 第二個參數是綁定的意思，跟 v-bind 不一樣，這裡是指元素和指令的關係，也就是 <span> 和 v-bigger 的關係
+                    // bigger 函數調用時機 1.指令與元素成功綁定時 2.指令所在的模板被重新解析時
+                    // 如果有 dash 的話，就需要用引號包起來
+                    'bigger-number'(element, binding) {
+                        console.log('bigger')
+                        element.innerText = binding.value * 10
+                    },
+                    // 一般 bind 和 update 裡的執行邏輯會是一樣的，所以才會有函數的運用
+                    // 所有指令裡的 this 都會指向 window
+                    fbind: {
+                        // 裡面有三個函數
+                        // 指令與元素成功綁定時調用
+                        bind(element, binding) {
+                            console.log('bind')
+                            element.value = binding.value
+                        },
+                        // 指令所在元素在插入頁面時調用
+                        inserted(element, binding) {
+                            console.log('inserted')
+                            // focus() 不是放在哪裡都有效
+                            // 只有當使用的 DOM 元素已經放到頁面上時才會觸發
+                            element.focus()
+                        },
+                        // 指令所在的模板被重新解析時調用
+                        update(element, binding) {
+                            console.log('update')
+                            element.value = binding.value
+                        },
+                    },
+                },
+            })
+
+            vm.$mount('#root')
+        </script>
+    </body>
+</html>

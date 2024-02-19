@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>document</title>
+    </head>
+    <body>
+        <div id="root">
+            <h2 :style="{ opacity }">Opacity</h2>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+        <script>
+            Vue.config.productionTip = false
+
+            const vm = new Vue({
+                data() {
+                    return {
+                        opacity: 1,
+                        greeting: '您好！',
+                        name: 'Alysa',
+                    }
+                },
+                computed: {},
+                methods: {},
+                // Vue 完成模板的解析，並把 DOM 元素放入後才會調用
+                // 只會觸發一次，因為在掛載那個關鍵時刻後，就不會再觸發
+                mounted() {
+                    console.log('mounted')
+                    setInterval(() => {
+                        this.opacity -= 0.01
+                        if (this.opacity <= 0) this.opacity = 1
+                    }, 16)
+                },
+            })
+
+            vm.$mount('#root')
+
+            // 不推薦：通過外部的定時器操作 Vue 實例的數據
+            // setInterval(() => {
+            //     vm.opacity -= 0.01
+            //     if (vm.opacity <= 0) vm.opacity = 1
+            // }, 16)
+        </script>
+    </body>
+</html>
