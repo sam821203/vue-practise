@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>document</title>
+    </head>
+    <body>
+        <div id="root">
+            <school></school>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+        <script>
+            Vue.config.productionTip = false
+
+            /* 
+                1.是一個 VueComponent 構造函數，不是工程師定義的，是 Vue.extend 生成的
+                2.每當宣告一個 <school></school> 時，就會生成一個新的 VueComponent 實例
+            */
+            const school = Vue.extend({
+                name: 'school',
+                template: `
+                    <div>
+                        <h2>學校名稱：{{ name }}</h2>
+                        <h2>學校地址：{{ address }}</h2>
+                        <button @click='showName'>點擊</button>
+                    </div>
+                `,
+
+                data() {
+                    return {
+                        name: 'Cheers',
+                        address: '台中市',
+                    }
+                },
+                methods: {
+                    showName() {
+                        // 3.this 指向該 VueComponent 實例物件，但跟 vm 長的一樣。但有些功能只有 vm 有，例如 vm 可以透過 el 來決定為哪個容器服務
+                        console.log('show this：', this)
+                    },
+                },
+            })
+
+            console.log(school)
+
+            const vm = new Vue({
+                el: '#root',
+                components: {
+                    school,
+                },
+            })
+        </script>
+    </body>
+</html>

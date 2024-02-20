@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>document</title>
+    </head>
+    <body>
+        <div id="root"></div>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+        <script>
+            Vue.config.productionTip = false
+
+            const student = Vue.extend({
+                name: 'student',
+                template: `
+                    <div>
+                        <h2>學生名稱</h2>
+                    </div>
+                `,
+                data() {
+                    return {}
+                },
+            })
+
+            const school = Vue.extend({
+                name: 'school',
+                template: `
+                    <div>
+                        <h2>學校名稱：{{ name }}</h2>
+                        <h2>學校地址：{{ address }}</h2>
+                        <student></student>
+                    </div>
+                `,
+                components: {
+                    student,
+                },
+                data() {
+                    return {
+                        name: 'Cheers',
+                        address: '台中市',
+                    }
+                },
+            })
+
+            const hello = Vue.extend({
+                name: 'hello',
+                template: `
+                    <div>
+                        <h1>{{ msg }}</h1>
+                    </div>
+                `,
+                data() {
+                    return {
+                        msg: '歡迎',
+                    }
+                },
+            })
+
+            // 定義 app 組件來管理其他組件
+            const app = Vue.extend({
+                name: 'app',
+                template: `
+                    <div>
+                        <hello></hello>
+                        <hr />
+                        <school></school>
+                    </div>
+                `,
+                components: {
+                    school,
+                    hello,
+                },
+            })
+
+            new Vue({
+                el: '#root',
+                template: `<app></app>`,
+                components: {
+                    app,
+                },
+            })
+        </script>
+    </body>
+</html>
