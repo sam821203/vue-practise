@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>document</title>
+  </head>
+  <body>
+    <div id="root">
+      <h2>{{ msg }}</h2>
+      <!-- 第三步：編寫組件標籤 -->
+      <school-comp></school-comp>
+      <hr />
+      <student-comp></student-comp>
+      <hr />
+      <student-comp></student-comp>
+    </div>
+    <div id="root2">
+      <hello></hello>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script>
+      Vue.config.productionTip = false;
+
+      // 第一步：school 組件
+      const school = Vue.extend({
+        template: `
+          <div>
+            <h3>學校名稱： {{ schoolName }}</h3>
+            <h3>學校地址： {{ address }}</h3>
+            <button @click="showName">點擊</button>  
+          </div>
+        `,
+        // 一定不要寫 el 配置項，因爲最終所有組件都要被 vm 管理
+        // el: '#root',
+        data() {
+          return {
+            schoolName: "Cheers",
+            address: "台中市",
+          };
+        },
+        methods: {
+          showName() {
+            alert(this.schoolName);
+          },
+        },
+      });
+
+      // 第一步：student 組件
+      // 組件的 data 不能寫成物件，必須是函式
+      const student = Vue.extend({
+        template: `
+          <div>
+            <h3>學生姓名： {{ studentName }}</h3>
+            <h3>學生年齡： {{ age }}</h3>
+          </div>
+        `,
+        data() {
+          return {
+            studentName: "Sam",
+            age: 18,
+          };
+        },
+      });
+
+      // 創建 vm
+      const hello = Vue.extend({
+        template: `
+          <div>
+            <h2>利賀！{{ name }}</h2>
+          </div>
+        `,
+        data() {
+          return {
+            name: "Tom",
+          };
+        },
+      });
+
+      // 創建 vm
+      new Vue({
+        el: "#root",
+        data: {
+          msg: "Title",
+        },
+        // 第二步：局部註冊組件
+        components: {
+          schoolComp: school,
+          studentComp: student,
+        },
+      });
+
+      new Vue({
+        el: "#root2",
+
+        // 第二步：局部註冊組件
+        components: {
+          hello,
+        },
+      });
+
+      // 第二步：全局註冊組件
+      Vue.components("hello", hello);
+    </script>
+  </body>
+</html>

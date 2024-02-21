@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>document</title>
+  </head>
+  <body>
+    <div id="root">
+      <!-- 第三步：編寫組件標籤 -->
+      <my-school></my-school>
+      <hr />
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script>
+      Vue.config.productionTip = false;
+
+      // 定義組件
+      // 簡寫方式可以把 Vue.extend 拿掉，直接寫配置對象
+      const school = {
+        // 只要有宣告 name 配置像的名稱，該組件的名稱就會以這邊的為主
+        name: "newSchoolName",
+        template: `
+          <div>
+            <h3>學校名稱： {{ schoolName }}</h3>
+            <h3>學校地址： {{ address }}</h3>
+          </div>
+        `,
+        data() {
+          return {
+            schoolName: "Cheers",
+            address: "台中市",
+          };
+        },
+        methods: {},
+      };
+
+      new Vue({
+        el: "#root",
+
+        // 第二步：局部註冊組件
+        components: {
+          MySchool: school,
+        },
+      });
+    </script>
+  </body>
+</html>
