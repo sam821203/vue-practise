@@ -7,21 +7,20 @@
 
 import Vue from 'vue'
 import App from './App.vue'
-import plugins from './plugins'
-import { mixin1, mixin2 } from './mixin'
 
 Vue.config.productionTip = false
 
-// 當這樣做時，所有 vm 和 VueComponent 都會有
-// Vue.mixin(mixin1)
-// Vue.mixin(mixin2)
+// 第一種寫法 vc
+// const Demo = Vue.extend({})
+// const d = new Demo()
 
-// Vue 提供的 use
-// 使用插件
-Vue.use(plugins)
-
+// 第二種寫法 vm
 const vm = new Vue({
     render: (h) => h(App),
+    beforeCreate() {
+        // 安裝全局事件總線，叫 "總線" 是因為全局的 vc 和 vm 都能看到它
+        Vue.prototype.$bus = this
+    },
 })
 
 vm.$mount('#app')

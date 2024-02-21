@@ -5,7 +5,7 @@
     </div>
 </template>
 <script>
-import { mixin1 } from '../mixin'
+// import { mixin1 } from '../mixin'
 
 export default {
     // name 最好跟文件名稱一樣 (School.vue)
@@ -16,7 +16,7 @@ export default {
             address: '台中市',
         }
     },
-    mixins: [mixin1],
+    // mixins: [mixin1],
     methods: {},
 }
 </script>
