@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="">
+    <head>
+        <meta charset="utf-8" />
+        <!-- 針對IE瀏覽器的特殊配置，含意是讓IE瀏覽器以最高的渲染級別渲染頁面 -->
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <!-- 開啟移動端的裡想視口 -->
+        <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+        <!-- <%= BASE_URL %> 代表著 public 裡的路徑 -->
+        <link rel="icon" href="<%= BASE_URL %>favicon.ico" />
+        <title><%= htmlWebpackPlugin.options.title %></title>
+    </head>
+    <body>
+        <!-- noscript 代表著如果使用者的瀏覽器不支援 JS，就會執行裡面的標籤解析 -->
+        <noscript>
+            <strong
+                >We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript
+                enabled. Please enable it to continue.</strong
+            >
+        </noscript>
+        <div id="app"></div>
+        <!-- built files will be auto injected -->
+    </body>
+</html>
