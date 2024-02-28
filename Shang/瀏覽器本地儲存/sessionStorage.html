@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- 把瀏覽器關掉後，sessionStorage 裡的資料會消失 -->
+    <h2>sessionStorage</h2>
+    <button onclick="saveData()">保存 數據</button>
+    <button onclick="readData()">讀取 數據</button>
+    <button onclick="deleteData()">刪除 數據</button>
+    <button onclick="clearData()">清空 數據</button>
+
+    <script>
+      let person = {
+        name: "小王",
+        age: 18,
+      };
+
+      const saveData = () => {
+        // key 和 value 都必須是字串，如果不是，瀏覽器會強制用 toString 來轉
+        sessionStorage.setItem("person", JSON.stringify(person));
+      };
+
+      const readData = () => {
+        const result = JSON.parse(sessionStorage.getItem("person"));
+        console.log(result);
+      };
+
+      const deleteData = () => {
+        sessionStorage.removeItem("person");
+      };
+
+      const clearData = () => {
+        sessionStorage.clear();
+      };
+    </script>
+  </body>
+</html>
